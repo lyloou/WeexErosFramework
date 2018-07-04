@@ -2,7 +2,6 @@ package com.benmu.framework.view;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -11,11 +10,14 @@ import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.benmu.framework.R;
@@ -48,6 +50,7 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
     private LinearLayout llTabBar;
     private ImageView borderLine;
     private ViewPager viewpager;
+    private ImageButton member;
     private PlatformConfigBean.TabBar tabBarBean;
     private List<MainWeexFragment> fragments;
     private MyFragmentAdapter fragmentAdapter;
@@ -78,6 +81,13 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
         llTabBar = (LinearLayout) view.findViewById(R.id.llTabBar);
         borderLine = (ImageView) view.findViewById(R.id.borderLine);
         viewpager = (ViewPager) view.findViewById(R.id.viewpager);
+        member = (ImageButton) view.findViewById(R.id.member);
+        member.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewpager.setCurrentItem(2, false);
+            }
+        });
     }
 
     public void setData(PlatformConfigBean.TabBar tabBar) {
@@ -116,7 +126,13 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
             TableItemView itemView = new TableItemView(context);
             LinearLayout.LayoutParams weight1 = new LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT, 1.0f);
             itemView.setLayoutParams(weight1);
-            itemView.setTextColor(tabBar.getColor(), tabBar.getSelectedColor());
+            String textColor = tabBar.getColor();
+            String textSelectedColor = tabBar.getSelectedColor();
+            if (i == 2) {
+                TextView tvName = (TextView) itemView.findViewById(R.id.itemNameTv);
+                tvName.setTextSize(14);
+            }
+            itemView.setTextColor(textColor, textSelectedColor);
             itemView.setIndex(i);
             itemView.setData(item);
             llTabBar.addView(itemView);
@@ -203,6 +219,12 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
         }
         MainWeexFragment fragment = fragments.get(index);
         fragment.setNavigator(navigatorArray.get(index));
+
+        if (index == 2) {
+            member.setBackgroundResource(R.drawable.member_select);
+        } else {
+            member.setBackgroundResource(R.drawable.member);
+        }
     }
 
 
@@ -276,6 +298,11 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
 
     }
 
+    private int getRandom() {
+        Random rand = new Random();
+        return rand.nextInt(160);
+    }
+
     /**
      * ViewPage Fragment 适配器
      */
@@ -301,11 +328,6 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
         public int getItemPosition(Object object) {
             return super.getItemPosition(object);
         }
-    }
-
-    private int getRandom() {
-        Random rand = new Random();
-        return rand.nextInt(160);
     }
 
 

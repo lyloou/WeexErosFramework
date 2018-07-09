@@ -178,6 +178,7 @@ public class VersionChecker {
                                             .toJsonString(newVersion));
                             newVersion = null;
                             mCurrentStatus = Constant.Version.SLEEP;
+                            VersionCheckerHelper.showUpgradeDialog(mContext);
                         } else {
                             L.e(TAG, "更新包md5校验失败，更新失败");
                             FileManager.deleteFile(new File(FileManager.getTempBundleDir
@@ -270,6 +271,7 @@ public class VersionChecker {
                                 .getManagerService(ParseManager.class).toJsonString(newVersion));
                         newVersion = null;
                         mCurrentStatus = Constant.Version.SLEEP;
+                        VersionCheckerHelper.showUpgradeDialog(mContext);
                     } else {
                         L.e("version", "下载patch md5校验出错");
                         //删除生成的新包和patch包

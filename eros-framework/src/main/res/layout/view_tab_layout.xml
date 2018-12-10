@@ -4,6 +4,18 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
+    <com.eros.framework.view.NoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/borderLine" />
+
+    <ImageView
+        android:id="@+id/borderLine"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/half_dp"
+        android:layout_above="@+id/llTabBar" />
+
     <!--底部tabbar-->
     <LinearLayout
         android:id="@+id/llTabBar"
@@ -14,7 +26,6 @@
         android:orientation="horizontal">
 
     </LinearLayout>
-
 
     <ImageView
         android:id="@+id/borderLine"

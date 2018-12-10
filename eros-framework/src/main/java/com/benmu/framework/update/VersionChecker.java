@@ -281,6 +281,7 @@ public class VersionChecker {
                                 (mContext), FileManager.TEMP_BUNDLE_NAME));
                         newVersion = null;
                         mCurrentStatus = Constant.Version.SLEEP;
+                        downloadCompleteZip();
                     }
 
 

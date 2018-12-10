@@ -29,36 +29,44 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.android.support:appcompat-v7:${PROJECT_SUPPORTLIBVERSION}"
-    testCompile 'junit:junit:4.12'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.2', {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:${PROJECT_SUPPORTLIBVERSION}"
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     /**
      * debug调试要用到的
      */
-    compile 'com.taobao.android.weex_inspection:protocol:1.1.4.1'
-    compile 'com.taobao.android:weex_inspector:0.13.4'
-    compile 'com.squareup.okhttp:okhttp-ws:2.3.0'
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'com.lzy.widget:imagepicker:0.6.1'
-    compile 'com.journeyapps:zxing-android-embedded:3.4.0'
-    compile 'com.github.chrisbanes.photoview:library:1.2.4'
-    compile 'com.android.support:multidex:1.0.1'
+    implementation 'com.taobao.android.weex_inspection:protocol:1.1.4.1'
+    implementation 'com.taobao.android:weex_inspector:0.13.4'
+    implementation 'com.squareup.okhttp:okhttp-ws:2.3.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation 'com.lzy.widget:imagepicker:0.6.1'
+    implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
+    implementation 'com.github.chrisbanes.photoview:library:1.2.4'
+    implementation 'com.android.support:multidex:1.0.1'
     //bs patch
-    compile 'me.ele:bspatch:1.0.6'
+    implementation 'me.ele:bspatch:1.0.6'
     //weex analyzer
-    compile 'com.taobao.android:weex_analyzer:0.1.0.5'
+    implementation 'com.taobao.android:weex_analyzer:0.1.0.5'
     //Bindigx
-    compile 'com.alibaba.android:bindingx-core:1.0.1'
-    compile 'com.alibaba.android:bindingx_weex_plugin:1.0.2'
-    compile 'org.weex.plugin:plugin-loader:1.0.0'
-    compile ('com.github.niorgai:StatusBarCompat:2.1.4', {
+    implementation 'com.alibaba.android:bindingx-core:1.0.1'
+    implementation 'com.alibaba.android:bindingx_weex_plugin:1.0.2'
+    implementation 'org.weex.plugin:plugin-loader:1.0.0'
+    implementation ('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'
     })
-    compile project(':nexus')
+    implementation project(':nexus')
+    implementation project(':sdk')
+    implementation 'org.weex.plugin:annotation:1.0.0'
 
+    implementation('com.github.bumptech.glide:glide:4.7.1', {
+        exclude group: 'com.android.support'
+    })
+    implementation 'com.squareup:otto:1.3.8'
+    compileOnly "com.alibaba:fastjson:1.1.46.android"
+    testImplementation "com.alibaba:fastjson:1.1.46.android"
 
 //    debugImplementation "com.squareup.leakcanary:leakcanary-android:1.5.4"
 //    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:1.5.4"

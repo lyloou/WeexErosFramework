@@ -23,6 +23,7 @@ import com.eros.framework.R;
 import com.eros.framework.activity.AbstractWeexActivity;
 import com.eros.framework.adapter.DefaultNavigationAdapter;
 import com.eros.framework.constant.WXEventCenter;
+import com.eros.framework.fragment.MagicWeexFragment;
 import com.eros.framework.fragment.MainWeexFragment;
 import com.eros.framework.manager.ManagerFactory;
 import com.eros.framework.manager.impl.dispatcher.DispatchEventManager;
@@ -184,7 +185,13 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
         Bundle bundle = new Bundle();
         bundle.putString(MainWeexFragment.PAGE_URL, item.getPagePath());
         fragment.setArguments(bundle);
-        fragments.add(fragment);
+        if (index == 0) {
+            MagicWeexFragment magicFragment = new MagicWeexFragment();
+            magicFragment.setArguments(bundle);
+            fragments.add(magicFragment);
+        } else {
+            fragments.add(fragment);
+        }
         NavigatorModel model = new NavigatorModel();
         model.navigatorModel = getNavStr(item);
         navigatorArray.append(index, model);

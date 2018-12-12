@@ -161,6 +161,7 @@ public class MagicWeexFragment extends MainWeexFragment implements OnBackPressed
             return;
         }
         EditText input = new EditText(context);
+        input.setTextColor(getResources().getColor(R.color.c_666666));
         AlertDialog dialog = new AlertDialog
             .Builder(context, android.R.style.Theme_DeviceDefault_Light_Dialog_NoActionBar_MinWidth)
             .setTitle("请输入网址")

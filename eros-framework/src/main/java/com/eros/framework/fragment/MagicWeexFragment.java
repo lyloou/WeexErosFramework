@@ -2,6 +2,7 @@ package com.eros.framework.fragment;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,12 +22,15 @@ import android.widget.Toast;
 import com.eros.framework.R;
 import com.eros.framework.activity.MainActivity;
 import com.eros.framework.config.DWebviewConfig;
+import com.eros.framework.manager.impl.ModalManager;
 import com.renrenyoupin.activity.BuildConfig;
 import com.renrenyoupin.activity.common.listener.OnBackPressedListener;
 import com.renrenyoupin.activity.common.util.Usp;
 import com.renrenyoupin.activity.h5.api.CallHandlerApi;
 import com.renrenyoupin.activity.h5.api.JavascriptInterfaceApi;
 import com.renrenyoupin.activity.h5.widget.DragFloatActionButton;
+import com.tencent.smtt.sdk.WebView;
+import com.tencent.smtt.sdk.WebViewClient;
 
 import java.util.Objects;
 
@@ -81,6 +85,20 @@ public class MagicWeexFragment extends MainWeexFragment implements OnBackPressed
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && activity != null) {
             activity.getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
         }
+        ModalManager.BmLoading.showLoading(activity, "", true);
+        dwebView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageStarted(WebView webView, String s, Bitmap bitmap) {
+                super.onPageStarted(webView, s, bitmap);
+            }
+
+            @Override
+            public void onPageFinished(WebView webView, String s) {
+                super.onPageFinished(webView, s);
+                ModalManager.BmLoading.dismissLoading(activity);
+            }
+        });
+
         return dwebView;
     }
 

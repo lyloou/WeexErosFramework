@@ -51,12 +51,5 @@ public class DWebviewConfig {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             settings.setAllowUniversalAccessFromFileURLs(true);
         }
-
-        dwebView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView webView, String s) {
-                return false;
-            }
-        });
     }
 }

@@ -25,7 +25,22 @@ android {
     lintOptions {
         abortOnError false
     }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+    }
 
+}
+
+repositories {
+
+    // 下面两行，在添加微博sdk时添加的
+    mavenCentral()
+    maven { url "https://dl.bintray.com/thelasterstar/maven/" }
+
+    maven {
+        url "http://repo.baichuan-android.taobao.com/content/groups/BaichuanRepositories/"
+    }
 }
 
 dependencies {
@@ -65,7 +80,9 @@ dependencies {
     testImplementation "com.alibaba:fastjson:1.1.46.android"
 
     implementation "com.github.wendux:${WENDUX_DSBRIDGE}"
-    
+    implementation project(':h5')
+    implementation project(':common')
+
 //    debugImplementation "com.squareup.leakcanary:leakcanary-android:1.5.4"
 //    releaseImplementation "com.squareup.leakcanary:leakcanary-android-no-op:1.5.4"
 }

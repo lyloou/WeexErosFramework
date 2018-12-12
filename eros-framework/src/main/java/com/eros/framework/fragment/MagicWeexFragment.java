@@ -19,8 +19,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.eros.framework.R;
+import com.eros.framework.activity.MainActivity;
 import com.eros.framework.config.DWebviewConfig;
 import com.renrenyoupin.activity.BuildConfig;
+import com.renrenyoupin.activity.common.listener.OnBackPressedListener;
 import com.renrenyoupin.activity.common.util.Usp;
 import com.renrenyoupin.activity.h5.api.CallHandlerApi;
 import com.renrenyoupin.activity.h5.api.JavascriptInterfaceApi;
@@ -34,7 +36,7 @@ import wendu.dsbridge.DWebView;
  * Created by liuyuanxiao on 2018/5/25.
  */
 
-public class MagicWeexFragment extends MainWeexFragment {
+public class MagicWeexFragment extends MainWeexFragment implements OnBackPressedListener {
     public static final String PAGE_URL = "rengerPageUrl";
     private static final String KEY_URL = "SPECIFIED_URL";
     public static final String TEST_API_METHOD = "file:///android_asset/demo.html";
@@ -48,6 +50,11 @@ public class MagicWeexFragment extends MainWeexFragment {
         if (mLayout == null) {
             mLayout = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_base_magic_main_layout, null);
             mContainer = mLayout.findViewById(R.id.layout_container);
+        }
+
+        if (getActivity() instanceof MainActivity) {
+            MainActivity mainActivity = (MainActivity) getActivity();
+            mainActivity.setOnBackPressedListener(this);
         }
         return mLayout;
     }
@@ -164,5 +171,14 @@ public class MagicWeexFragment extends MainWeexFragment {
             });
         });
         dialog.show();
+    }
+
+    @Override
+    public boolean doBack() {
+        if (mDwebView.canGoBack()) {
+            mDwebView.goBack();
+            return true;
+        }
+        return false;
     }
 }

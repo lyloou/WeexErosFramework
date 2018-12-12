@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.ViewGroup;
 import android.view.ViewStub;
 import android.view.WindowManager;
@@ -17,13 +15,12 @@ import com.eros.framework.BMWXApplication;
 import com.eros.framework.BMWXEnvironment;
 import com.eros.framework.R;
 import com.eros.framework.constant.Constant;
-import com.eros.framework.event.TabbarEvent;
 import com.eros.framework.manager.impl.GlobalEventManager;
 import com.eros.framework.model.RouterModel;
 import com.eros.framework.model.TabbarBadgeModule;
 import com.eros.framework.model.WeexEventBean;
-import com.eros.framework.utils.SharePreferenceUtil;
 import com.eros.framework.view.TableView;
+import com.renrenyoupin.activity.common.listener.OnBackPressedListener;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.WXSDKInstance;
 
@@ -33,6 +30,7 @@ public class MainActivity extends AbstractWeexActivity {
     private TableView tableView;
     private BroadcastReceiver mReloadReceiver;
     private RouterModel routerModel;
+    private OnBackPressedListener onBackPressedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,18 +86,25 @@ public class MainActivity extends AbstractWeexActivity {
         return false;
     }
 
+    public void setOnBackPressedListener(OnBackPressedListener onBackPressedListener) {
+        this.onBackPressedListener = onBackPressedListener;
+    }
+
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            if (isHomePage() && BMWXEnvironment.mPlatformConfig.isAndroidIsListenHomeBack()) {
-                WXSDKInstance wxsdkInstance = getWXSDkInstance();
-                if (wxsdkInstance != null) {
-                    GlobalEventManager.homeBack(wxsdkInstance);
-                    return true;
-                }
-            }
+    public void onBackPressed() {
+        if (onBackPressedListener != null && onBackPressedListener.doBack()) {
+            return;
         }
-        return super.onKeyDown(keyCode, event);
+
+        if (isHomePage() && BMWXEnvironment.mPlatformConfig.isAndroidIsListenHomeBack()) {
+            WXSDKInstance wxsdkInstance = getWXSDkInstance();
+            if (wxsdkInstance != null) {
+                GlobalEventManager.homeBack(wxsdkInstance);
+            }
+            return;
+        }
+
+        super.onBackPressed();
     }
 
     @Override

@@ -22,7 +22,14 @@ import android.widget.Toast;
 import com.eros.framework.R;
 import com.eros.framework.activity.MainActivity;
 import com.eros.framework.config.DWebviewConfig;
+import com.eros.framework.constant.Constant;
+import com.eros.framework.constant.WXEventCenter;
+import com.eros.framework.manager.ManagerFactory;
 import com.eros.framework.manager.impl.ModalManager;
+import com.eros.framework.manager.impl.ParseManager;
+import com.eros.framework.manager.impl.dispatcher.DispatchEventManager;
+import com.eros.framework.model.RouterModel;
+import com.eros.framework.model.WeexEventBean;
 import com.renrenyoupin.activity.BuildConfig;
 import com.renrenyoupin.activity.common.listener.OnBackPressedListener;
 import com.renrenyoupin.activity.common.util.Usp;
@@ -31,6 +38,9 @@ import com.renrenyoupin.activity.h5.api.JavascriptInterfaceApi;
 import com.renrenyoupin.activity.h5.widget.DragFloatActionButton;
 import com.tencent.smtt.sdk.WebView;
 import com.tencent.smtt.sdk.WebViewClient;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Objects;
 
@@ -71,10 +81,49 @@ public class MagicWeexFragment extends MainWeexFragment implements OnBackPressed
 
         showDefaultUrl();
 
-        new JavascriptInterfaceApi(mDwebView).init();
+        JavascriptInterfaceApi jsApi = new JavascriptInterfaceApi(mDwebView);
+        init(jsApi);
+
         CallHandlerApi callHandlerApi = new CallHandlerApi(mDwebView);
         callHandlerApi.addValue();
         initFloatButton(mDwebView);
+    }
+
+    private void init(JavascriptInterfaceApi jsApi) {
+        final FragmentActivity activity = getActivity();
+        if (activity == null) {
+            return;
+        }
+
+        jsApi.init();
+        jsApi.getRenren().getNavigator().setListener(requestData -> {
+            try {
+                JSONObject jsonObject = new JSONObject(String.valueOf(requestData));
+                String url = jsonObject.optString("url");
+                String title = jsonObject.optString("title");
+                boolean finishCurrentPage = jsonObject.optBoolean("finishCurrentPage");
+                JSONObject param = jsonObject.optJSONObject("param");
+
+                RouterModel router = new RouterModel(url, Constant.ACTIVITIES_ANIMATION
+                    .ANIMATION_PUSH, param, title, false, null);
+                DispatchEventManager dispatchEventManager = ManagerFactory.getManagerService
+                    (DispatchEventManager.class);
+                WeexEventBean eventBean = new WeexEventBean();
+                eventBean.setKey(WXEventCenter.EVENT_OPEN);
+                eventBean.setJsParams(ManagerFactory.getManagerService(ParseManager.class)
+                    .toJsonString(router));
+                eventBean.setContext(activity);
+                dispatchEventManager.getBus().post(eventBean);
+                if (finishCurrentPage) {
+                    activity.finish();
+                }
+                return true;
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            return false;
+        });
     }
 
 

@@ -56,7 +56,7 @@ dependencies {
     implementation 'com.taobao.android.weex_inspection:protocol:1.1.4.1'
     implementation 'com.taobao.android:weex_inspector:0.13.4'
     implementation 'com.squareup.okhttp:okhttp-ws:2.3.0'
-    implementation 'com.squareup.okhttp3:okhttp:3.8.0'
+    implementation "com.squareup.okhttp3:okhttp:$OKHTTP3_VERSION"
     implementation 'com.lzy.widget:imagepicker:0.6.1'
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
     implementation 'com.github.chrisbanes.photoview:library:1.2.4'

@@ -24,7 +24,7 @@ import com.eros.framework.activity.MainActivity;
 import com.eros.framework.config.DWebviewConfig;
 import com.eros.framework.manager.impl.ModalManager;
 import com.eros.framework.proxy.NavigateListenerProxy;
-import com.renrenyoupin.activity.BuildConfig;
+import com.renrenyoupin.activity.common.BuildConfig;
 import com.renrenyoupin.activity.common.listener.OnBackPressedListener;
 import com.renrenyoupin.activity.common.util.Usp;
 import com.renrenyoupin.activity.h5.api.CallHandlerApi;

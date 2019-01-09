@@ -140,8 +140,10 @@ public class MagicWeexFragment extends MainWeexFragment implements OnBackPressed
                     Toast.makeText(activity, "已全清", Toast.LENGTH_SHORT).show();
                 } else if (i == R.id.action_api_url) {
                     loadUrl(TEST_API);
+                    Usp.init(mDwebView.getContext()).putString(KEY_URL, TEST_API).commit();
                 } else if (i == R.id.action_api_method) {
                     loadUrl(TEST_API_METHOD);
+                    Usp.init(mDwebView.getContext()).putString(KEY_URL, TEST_API_METHOD).commit();
                 } else if (i == R.id.action_custom_url) {
                     showCustomUrlDialog();
                 }

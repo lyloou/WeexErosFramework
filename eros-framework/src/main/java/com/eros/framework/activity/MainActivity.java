@@ -79,7 +79,7 @@ public class MainActivity extends AbstractWeexActivity {
 
 
     @Override
-    public boolean navigationListenter(WeexEventBean weexEventBean) {
+    public boolean navigationListener(WeexEventBean weexEventBean) {
         if (tableView != null) {
             return tableView.setNaigation(weexEventBean);
         }

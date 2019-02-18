@@ -925,7 +925,7 @@ public class AbstractWeexActivity extends AppCompatActivity implements IWXRender
     /**
      * navigation 设置监听器，为了传递给下层 fragment
      */
-    public boolean navigationListenter(WeexEventBean weexEventBean) {
+    public boolean navigationListener(WeexEventBean weexEventBean) {
         return false;
     }
 

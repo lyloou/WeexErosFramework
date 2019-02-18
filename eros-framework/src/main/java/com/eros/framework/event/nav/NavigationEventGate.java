@@ -18,7 +18,7 @@ public class NavigationEventGate extends EventGate {
         if (context != null) {
             if (context instanceof AbstractWeexActivity) {
                 AbstractWeexActivity abs = (AbstractWeexActivity) context;
-                return abs.navigationListenter(weexEventBean);
+                return abs.navigationListener(weexEventBean);
             }
         }
         return false;

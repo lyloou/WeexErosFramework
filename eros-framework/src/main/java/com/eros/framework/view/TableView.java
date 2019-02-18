@@ -83,6 +83,7 @@ public class TableView extends RelativeLayout implements ViewPager.OnPageChangeL
         llTabBar = (LinearLayout) view.findViewById(R.id.llTabBar);
         borderLine = (ImageView) view.findViewById(R.id.borderLine);
         viewpager = (NoScrollViewPager) view.findViewById(R.id.viewpager);
+        viewpager.setNoScroll(true);
         member = (ImageButton) view.findViewById(R.id.member);
         member.setOnClickListener(new OnClickListener() {
             @Override

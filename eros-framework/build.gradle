@@ -80,7 +80,6 @@ dependencies {
     testImplementation "com.alibaba:fastjson:1.1.46.android"
 
     implementation "com.github.wendux:$WENDUX_DSBRIDGE_VERSION"
-    implementation project(':h5')
     implementation project(':common')
 
 //    debugImplementation "com.squareup.leakcanary:leakcanary-android:1.5.4"
